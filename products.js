@@ -117,3 +117,14 @@ function addCoffeeSort(menu) {
 }
 
 addCoffeeSort(menu);
+
+let allButtons = document.querySelectorAll("button");
+allButtons.forEach((button) => {
+    button.addEventListener("mouseenter", () =>
+        button.classList.toggle("add-btn-hover")
+    );
+
+    button.addEventListener("mouseleave", () =>
+        button.classList.remove("add-btn-hover")
+    );
+});
