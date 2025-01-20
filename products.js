@@ -1,4 +1,4 @@
-let menu = [
+const menu = [
     {
         id: 1,
         title: "Bryggkaffe",
@@ -47,7 +47,7 @@ let menu = [
             "Kaffe Latte är en mjuk och len kaffedryck som består av en perfekt balans mellan espresso och ångad mjölk. Den är känd för sin lena och krämiga konsistens samt sin milda och behagliga smak.",
         price: 59,
         rating: 4.4,
-        image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGF0dGV8ZW58MHx8MHx8fDA%3D",
+        image: "https://images.unsplash.com/photo-1604313803931-169516ec5498?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
         id: 6,
@@ -70,3 +70,50 @@ let menu = [
         image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFjY2hpYXRvfGVufDB8fDB8fHww",
     },
 ];
+
+function addCoffeeSort(menu) {
+    console.log(menu);
+
+    let menuContainerRef = document.querySelector(".menu-container");
+
+    for (let i = 0; i < menu.length; i++) {
+        let articleCardRef = document.createElement("article");
+        let cardFigRef = document.createElement("figure");
+        let cardImgRef = document.createElement("img");
+        let divCardContentRef = document.createElement("div");
+        let cardTitleRef = document.createElement("h2");
+        let cardDescRef = document.createElement("p");
+        let cardLongerDescRef = document.createElement("p");
+        let divPriceRef = document.createElement("div");
+        let addBtnRef = document.createElement("button");
+
+        cardTitleRef.textContent = menu[i].title;
+        cardImgRef.src = menu[i].image;
+        cardDescRef.textContent = menu[i].desc;
+        cardLongerDescRef.textContent = menu[i].longer_desc;
+        divPriceRef.textContent = menu[i].price + "kr";
+        addBtnRef.textContent = "Add to cart";
+
+        articleCardRef.classList.add("card");
+        cardFigRef.classList.add("card-imgcontainer");
+        cardImgRef.classList.add("card-img");
+        divCardContentRef.classList.add("card-content");
+        cardTitleRef.classList.add("card-title");
+        cardDescRef.classList.add("card-desc");
+        cardLongerDescRef.classList.add("card-longerdesc");
+        divPriceRef.classList.add("price");
+        addBtnRef.classList.add("add-btn");
+
+        cardFigRef.appendChild(cardImgRef);
+        articleCardRef.appendChild(cardFigRef);
+        articleCardRef.appendChild(divCardContentRef);
+        divCardContentRef.appendChild(cardTitleRef);
+        divCardContentRef.appendChild(cardTitleRef);
+        divCardContentRef.appendChild(cardDescRef);
+        articleCardRef.appendChild(divPriceRef);
+        articleCardRef.appendChild(addBtnRef);
+        menuContainerRef.appendChild(articleCardRef);
+    }
+}
+
+addCoffeeSort(menu);
