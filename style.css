@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
+    list-style: none;
 }
 
 body {
@@ -19,11 +20,55 @@ body {
     overflow-x: hidden;
 }
 
+header {
+    position: fixed;
+    z-index: 999;
+    max-width: var(--width);
+    width: 100%;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #2f2926;
+}
+
+header > img {
+    max-width: 8rem;
+    width: 100%;
+}
+
+header nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+header nav a,
+footer a {
+    color: rgb(255, 255, 255);
+    font-size: 1.6rem;
+    text-decoration: none;
+    margin: 0 1.6rem;
+}
+
+header nav a.active {
+    font-weight: bold;
+    color: rgba(0, 0, 0, 1);
+}
+
+footer section article {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
 .menu-header {
     font-size: 2rem;
     font-weight: bold;
     color: #2c2c2c;
-    margin: 1.5rem;
+    margin-top: 9rem;
 }
 .menu-container {
     margin: 2rem;
@@ -35,9 +80,9 @@ body {
 
 .card {
     max-width: 20rem;
-    background-color: #fff;
+    background-color: #f3e4e1;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 9px 2px rgba(0, 0, 0, 0.4);
     margin-bottom: 20px;
     padding: 15px;
     display: flex;
@@ -82,8 +127,13 @@ body {
     color: #2c2c2c;
 }
 
+.rating {
+    color: rgb(201, 173, 17);
+    font-size: 1rem;
+}
+
 .add-btn {
-    background-color: #3cae40;
+    background-color: #38846d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -101,6 +151,6 @@ body {
 }
 
 .add-btn-hover {
-    background-color: #4cbd50;
+    background-color: #336e5c;
     transform: scale(0.98);
 }

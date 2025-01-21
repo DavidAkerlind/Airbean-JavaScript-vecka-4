@@ -72,8 +72,6 @@ const menu = [
 ];
 
 function addCoffeeSort(menu) {
-    console.log(menu);
-
     let menuContainerRef = document.querySelector(".menu-container");
 
     for (let i = 0; i < menu.length; i++) {
@@ -85,6 +83,7 @@ function addCoffeeSort(menu) {
         let cardDescRef = document.createElement("p");
         let cardLongerDescRef = document.createElement("p");
         let divPriceRef = document.createElement("div");
+        let ratingRef = document.createElement("div");
         let addBtnRef = document.createElement("button");
 
         cardTitleRef.textContent = menu[i].title;
@@ -92,7 +91,9 @@ function addCoffeeSort(menu) {
         cardDescRef.textContent = menu[i].desc;
         cardLongerDescRef.textContent = menu[i].longer_desc;
         divPriceRef.textContent = menu[i].price + "kr";
+        ratingRef.textContent = menu[i].rating + " ★★★★";
         addBtnRef.textContent = "Add to cart";
+        addBtnRef.id = menu[i].id;
 
         articleCardRef.classList.add("card");
         cardFigRef.classList.add("card-imgcontainer");
@@ -102,6 +103,7 @@ function addCoffeeSort(menu) {
         cardDescRef.classList.add("card-desc");
         cardLongerDescRef.classList.add("card-longerdesc");
         divPriceRef.classList.add("price");
+        ratingRef.classList.add("rating");
         addBtnRef.classList.add("add-btn");
 
         cardFigRef.appendChild(cardImgRef);
@@ -111,12 +113,15 @@ function addCoffeeSort(menu) {
         divCardContentRef.appendChild(cardTitleRef);
         divCardContentRef.appendChild(cardDescRef);
         articleCardRef.appendChild(divPriceRef);
+        articleCardRef.appendChild(ratingRef);
         articleCardRef.appendChild(addBtnRef);
         menuContainerRef.appendChild(articleCardRef);
     }
 }
 
 addCoffeeSort(menu);
+
+let shoppingBag = [];
 
 let allButtons = document.querySelectorAll("button");
 allButtons.forEach((button) => {
@@ -127,4 +132,9 @@ allButtons.forEach((button) => {
     button.addEventListener("mouseleave", () =>
         button.classList.remove("add-btn-hover")
     );
+
+    button.addEventListener("click", () => {
+        shoppingBag.push(menu[button.id]);
+        console.log(shoppingBag);
+    });
 });
