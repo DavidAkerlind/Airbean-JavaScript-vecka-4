@@ -15,10 +15,20 @@
                 <a href="#">Home</a>
                 <a href="#">Products</a>
                 <a href="#">Contact</a>
-                <img src="./icon-bag.svg" alt="cart" />
+                <img class="shopping-bag" src="./icon-bag.svg" alt="cart" />
+                <div
+                    id="divShoppingBagAmount"
+                    class="shopping-bag-amount d-none"></div>
+                <div id="bagDropdown" class="dropdown d-none">
+                    <h3>Din varukorg</h3>
+                    <ul id="bagItems"></ul>
+                    <button id="checkout">Checkout</button>
+                </div>
             </nav>
         </header>
-        <h1 class="menu-header">Meny</h1>
+        <h1 class="menu-header1">Meny</h1>
         <div class="menu-container"></div>
+        <h1 class="menu-header2 d-none">Varukorg</h1>
+        <div class="shopping-bag-page d-none"></div>
     </body>
 </html>

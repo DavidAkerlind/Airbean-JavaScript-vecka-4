@@ -63,8 +63,13 @@ footer section article {
     margin: 0;
     padding: 0;
 }
-
-.menu-header {
+.menu-header2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c2c2c;
+    margin-top: 9rem;
+}
+.menu-header1 {
     font-size: 2rem;
     font-weight: bold;
     color: #2c2c2c;
@@ -153,4 +158,99 @@ footer section article {
 .add-btn-hover {
     background-color: #336e5c;
     transform: scale(0.98);
+}
+
+.shopping-bag {
+    background-color: #ffffff;
+    border-radius: 20%;
+    padding: 0.5rem;
+    width: 3.7rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.shopping-bag-hover {
+    background-color: #b0b0b0;
+    cursor: pointer;
+}
+.shopping-bag-amount {
+    z-index: 9999;
+    width: 2rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #e5674e;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 3.5rem -0.8rem;
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.d-none {
+    display: none;
+}
+
+.dropdown {
+    padding: 1rem;
+    position: absolute;
+    top: 82%;
+    right: 1rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 25rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+}
+
+#bagItems {
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#bagItems li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+#bagItems li button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+}
+
+#checkout {
+    display: block;
+    width: 90%;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    background-color: #2c2c2c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.fig-dropdown {
+    max-width: 1.4rem;
+    max-height: 2rem;
+}
+.img-dropdown {
+    width: 100%;
+    border-radius: 20%;
+}
+
+.p-dropdown {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
 }
