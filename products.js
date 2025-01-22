@@ -79,6 +79,8 @@ const menu = [
 ];
 
 function addCoffeeSort(menu) {
+    console.log("addCoffeeSort()");
+
     let menuContainerRef = document.querySelector(".menu-container");
 
     for (let i = 0; i < menu.length; i++) {
@@ -131,6 +133,8 @@ addCoffeeSort(menu);
 let shoppingBag = [];
 
 function addToShoppingBag(button) {
+    console.log("addToShoppingBag()");
+
     const productId = parseInt(button.id, 10);
     const existingProduct = shoppingBag.find((item) => item.id === productId);
 
@@ -140,7 +144,6 @@ function addToShoppingBag(button) {
         shoppingBag.push(menu[button.id - 1]);
     }
 
-    console.log(shoppingBag);
     let divShoppingBagAmountRef = document.querySelector(
         "#divShoppingBagAmount"
     );
@@ -149,6 +152,8 @@ function addToShoppingBag(button) {
 }
 
 function showShoppingPage() {
+    console.log("showShoppingPage()");
+
     document.querySelector(".menu-header1").classList.add("d-none");
     document.querySelector(".menu-container").classList.add("d-none");
     document.querySelector(".menu-header1").classList.add("d-none");
@@ -196,6 +201,7 @@ let bagItemsList = document.querySelector("#bagItems");
 //==============================^^^^^ Not functions ^^^^ ================================
 
 function updateBagDropdown() {
+    console.log("updateBagDropdown()");
     bagItemsList.innerHTML = "";
     if (shoppingBag.length === 0) {
         let emptyMsg = document.createElement("li");
@@ -222,11 +228,12 @@ function updateBagDropdown() {
 
         p.textContent = `${item.quantity} st`;
         button.textContent = "Ta bort";
-        span.textContent = `${item.title}${item.price}kr`;
+        span.textContent = `${item.title} ${
+            parseInt(item.quantity) * parseInt(item.price)
+        }kr`;
 
         button.addEventListener("click", () => {
             const itemId = parseInt(button.dataset.id);
-            console.log(itemId);
             removeItemFromCart(itemId);
         });
 
@@ -245,16 +252,24 @@ function updateBagDropdown() {
 
 function removeItemFromCart(itemId) {
     console.log("removeItemFromCart()");
+
+    let existingProduct = shoppingBag.find((item) => item.id === itemId);
+
+    if (existingProduct) {
+        existingProduct.quantity = 1;
+    }
+
     shoppingBag = shoppingBag.filter((item) => item.id !== itemId);
+
     updateBagItemAmount();
     updateBagDropdown();
-    console.log(shoppingBag);
 }
 
 function updateBagItemAmount() {
+    console.log("updateBagItemAmount()");
+
     let bagAmount = 0;
     shoppingBag.forEach((item) => {
-        console.log(item.quantity);
         bagAmount = bagAmount + parseInt(item.quantity);
     });
 
