@@ -151,6 +151,14 @@ function addToShoppingBag(button) {
     updateBagItemAmount();
 }
 
+function showMenuPage() {
+    document.querySelector(".menu-header1").classList.remove("d-none");
+    document.querySelector(".menu-container").classList.remove("d-none");
+    document.querySelector(".menu-header1").classList.remove("d-none");
+    document.querySelector(".menu-header2").classList.add("d-none");
+    document.querySelector(".shopping-bag-page").classList.add("d-none");
+}
+
 function showShoppingPage() {
     console.log("showShoppingPage()");
 
@@ -158,47 +166,95 @@ function showShoppingPage() {
     document.querySelector(".menu-container").classList.add("d-none");
     document.querySelector(".menu-header1").classList.add("d-none");
     document.querySelector(".menu-header2").classList.remove("d-none");
-}
+    document.querySelector(".shopping-bag-page").classList.remove("d-none");
+    document.querySelector("#bagDropdown").classList.toggle("d-none");
 
-//==============================Not functions ================================
-let shoppingBagBtn = document.querySelector(".shopping-bag");
+    const shoppingBagPageRef = document.querySelector(".shopping-bag-page");
+    shoppingBagPageRef.innerHTML = ""; // Tar bort tidigare renderade produkter
 
-shoppingBagBtn.addEventListener("mouseenter", () => {
-    shoppingBagBtn.classList.add("shopping-bag-hover");
-    updateBagDropdown();
-    document.querySelector(".dropdown").classList.remove("d-none");
-});
-
-shoppingBagBtn.addEventListener("mouseleave", () => {
-    shoppingBagBtn.classList.remove("shopping-bag-hover");
-});
-
-shoppingBagBtn.addEventListener("click", showShoppingPage);
-document.querySelector("#checkout").addEventListener("click", showShoppingPage);
-
-document.querySelector("#bagDropdown").addEventListener("mouseleave", () => {
-    document.querySelector("#bagDropdown").classList.add("d-none");
-});
-
-let allButtons = document.querySelectorAll(".add-btn");
-allButtons.forEach((button) => {
-    button.addEventListener("mouseenter", () =>
-        button.classList.toggle("add-btn-hover")
-    );
-
-    button.addEventListener("mouseleave", () =>
-        button.classList.remove("add-btn-hover")
-    );
-
-    button.addEventListener("click", () => {
-        addToShoppingBag(button);
+    let bagAmount2 = 0;
+    shoppingBag.forEach((item) => {
+        bagAmount2 += parseInt(item.quantity);
     });
-});
 
-let bagDropdownRef = document.querySelector("#bagDropdown");
-let bagItemsList = document.querySelector("#bagItems");
+    if (bagAmount2 === 0) {
+        document.querySelector(".menu-sub-header").classList.remove("d-none");
+        document.querySelector(".menu-sub-header").textContent =
+            "Din varukorg är tom";
+    } else {
+        addItemTOShoppingBagPage();
+    }
+}
+function addItemTOShoppingBagPage() {
+    let shoppingBagPageRef = document.querySelector("#shoppingBagPage");
+    shoppingBag.forEach((item) => {
+        console.log(item);
+        let itemArticleRef = document.createElement("article");
+        let itemImgRef = document.createElement("img");
+        let itemDetailsRef = document.createElement("div");
+        let itemTitleRef = document.createElement("h3");
+        let itemDescRef = document.createElement("p");
+        let itemPriceRef = document.createElement("p");
 
-//==============================^^^^^ Not functions ^^^^ ================================
+        let itemActionsRef = document.createElement("div");
+        let itemQuontityRef = document.createElement("select");
+
+        let removeBtn = document.createElement("button");
+        removeBtn.textContent = "Ta bort";
+        removeBtn.classList.add("remove-item");
+        removeBtn.dataset.id = `${item.id}`;
+        itemArticleRef.dataset.id = `${item.id}`;
+
+        for (let i = 1; i <= 10; i++) {
+            let option = document.createElement("option");
+            option.value = i;
+            option.textContent = i;
+            if (i === item.quantity) {
+                option.selected = true;
+            }
+            itemQuontityRef.appendChild(option);
+        }
+
+        itemQuontityRef.addEventListener("change", (event) => {
+            const newQuantity = parseInt(event.target.value, 10);
+            updateBagItemQuantity(item.id, newQuantity);
+        });
+
+        removeBtn.addEventListener("click", () => {
+            const itemId = parseInt(removeBtn.dataset.id);
+            removeItemFromCart(itemId);
+
+            itemArticleRef.remove();
+        });
+
+        itemArticleRef.classList.add("shopping-bag-item");
+
+        itemImgRef.classList.add("item-image");
+        itemDetailsRef.classList.add("item-details");
+        itemTitleRef.classList.add("item-title");
+        itemDescRef.classList.add("item-desc");
+        itemPriceRef.classList.add("item-price");
+
+        itemImgRef.src = item.image;
+        itemTitleRef.textContent = item.title;
+        itemDescRef.textContent = item.desc;
+
+        itemPriceRef.textContent = `${item.price * item.quantity}kr`;
+
+        itemArticleRef.appendChild(itemImgRef);
+        itemArticleRef.appendChild(itemDetailsRef);
+        itemArticleRef.appendChild(itemActionsRef);
+
+        itemDetailsRef.appendChild(itemTitleRef);
+        itemDetailsRef.appendChild(itemDescRef);
+        itemDetailsRef.appendChild(itemPriceRef);
+
+        itemActionsRef.appendChild(itemQuontityRef);
+        itemActionsRef.appendChild(removeBtn);
+
+        shoppingBagPageRef.appendChild(itemArticleRef);
+    });
+}
 
 function updateBagDropdown() {
     console.log("updateBagDropdown()");
@@ -260,8 +316,9 @@ function removeItemFromCart(itemId) {
     }
 
     shoppingBag = shoppingBag.filter((item) => item.id !== itemId);
-
+    console.log(shoppingBag);
     updateBagItemAmount();
+
     updateBagDropdown();
 }
 
@@ -270,8 +327,61 @@ function updateBagItemAmount() {
 
     let bagAmount = 0;
     shoppingBag.forEach((item) => {
-        bagAmount = bagAmount + parseInt(item.quantity);
+        bagAmount += parseInt(item.quantity);
     });
 
     document.querySelector("#divShoppingBagAmount").textContent = bagAmount;
 }
+
+function updateBagItemQuantity(itemId, newQuantity) {
+    console.log("updateBagItemQuantity()");
+    const item = shoppingBag.find((product) => product.id === itemId);
+    if (item) {
+        item.quantity = newQuantity;
+        updateBagItemAmount();
+        updateBagDropdown();
+        console.log(`Updated item ${item.title} to quantity: ${newQuantity}`);
+    }
+}
+
+//==============================Not functions ================================
+let shoppingBagBtn = document.querySelector(".shopping-bag");
+
+shoppingBagBtn.addEventListener("mouseenter", () => {
+    shoppingBagBtn.classList.add("shopping-bag-hover");
+    updateBagDropdown();
+    document.querySelector(".dropdown").classList.remove("d-none");
+});
+
+shoppingBagBtn.addEventListener("mouseleave", () => {
+    shoppingBagBtn.classList.remove("shopping-bag-hover");
+});
+
+shoppingBagBtn.addEventListener("click", showShoppingPage);
+document.querySelector("#checkout").addEventListener("click", showShoppingPage);
+
+document.querySelector("#navMenu").addEventListener("click", showMenuPage);
+
+document.querySelector("#bagDropdown").addEventListener("mouseleave", () => {
+    document.querySelector("#bagDropdown").classList.add("d-none");
+});
+
+let allAddButtons = document.querySelectorAll(".add-btn");
+allAddButtons.forEach((button) => {
+    button.addEventListener("mouseenter", () =>
+        button.classList.toggle("add-btn-hover")
+    );
+
+    button.addEventListener("mouseleave", () =>
+        button.classList.remove("add-btn-hover")
+    );
+
+    button.addEventListener("click", () => {
+        addToShoppingBag(button);
+    });
+});
+
+let bagDropdownRef = document.querySelector("#bagDropdown");
+let bagItemsList = document.querySelector("#bagItems");
+
+//==============================^^^^^ Not functions ^^^^ ================================
