@@ -174,7 +174,11 @@ function updateBagItemAmount() {
         bagAmount += parseInt(item.quantity);
     });
 
-    document.querySelector("#divShoppingBagAmount").textContent = bagAmount;
+    if (bagAmount > 0) {
+        document.querySelector("#divShoppingBagAmount").textContent = bagAmount;
+    } else {
+        document.querySelector("#divShoppingBagAmount").classList.add("d-none");
+    }
 }
 
 function showMenuPage() {
@@ -353,6 +357,16 @@ function updateBagItemQuantity(itemId, newQuantity) {
     const item = shoppingBag.find((product) => product.id === itemId);
     if (item) {
         item.quantity = newQuantity;
+        // Uppdatera pris-texten för det aktuella objektet
+        const itemArticleRef = document.querySelector(
+            `.shopping-bag-item[data-id='${itemId}']`
+        );
+        if (itemArticleRef) {
+            const itemPriceRef = itemArticleRef.querySelector(".item-price");
+            itemPriceRef.textContent = `${item.price * item.quantity}kr`;
+        }
+
+        // Uppdatera totalmängden och dropdown
         updateBagItemAmount();
         updateBagDropdown();
         console.log(`Updated item ${item.title} to quantity: ${newQuantity}`);
