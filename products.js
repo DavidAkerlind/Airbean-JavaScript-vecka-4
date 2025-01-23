@@ -389,6 +389,8 @@ shoppingBagBtn.addEventListener("mouseleave", () => {
 shoppingBagBtn.addEventListener("click", showShoppingPage);
 document.querySelector("#checkout").addEventListener("click", showShoppingPage);
 
+document.querySelector(".logo").addEventListener("click", showMenuPage);
+
 document.querySelector("#navMenu").addEventListener("click", showMenuPage);
 
 document.querySelector("#bagDropdown").addEventListener("mouseleave", () => {
