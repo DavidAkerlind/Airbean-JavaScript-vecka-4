@@ -288,6 +288,7 @@ function addItemTOShoppingBagPage() {
 
 function updateBagDropdown() {
     console.log("updateBagDropdown()");
+    totalPrice();
     bagItemsList.innerHTML = "";
     if (shoppingBag.length === 0) {
         let emptyMsg = document.createElement("li");
@@ -336,6 +337,7 @@ function updateBagDropdown() {
         button.classList.add("fa-trash");
         button.dataset.id = `${item.id}`;
 
+        totalPrice();
         p.textContent = `${item.quantity} st`;
 
         pTitle.innerText = `${item.title}`;
@@ -367,6 +369,20 @@ function updateBagDropdown() {
     });
 }
 
+function totalPrice() {
+    console.log("totalPrice()");
+    let totalPriceCheckout = 0;
+    shoppingBag.forEach((item) => {
+        let price = item.quantity * item.price;
+        totalPriceCheckout += price;
+    });
+
+    document.querySelector(
+        "#totalPriceDropdown"
+    ).textContent = `Total summa: ${totalPriceCheckout}kr`;
+
+    return totalPriceCheckout;
+}
 function removeItemFromCart(itemId) {
     console.log("removeItemFromCart()");
 
@@ -400,6 +416,7 @@ function updateBagItemQuantity(itemId, newQuantity) {
         // Uppdatera totalmängden och dropdown
         updateBagItemAmount();
         updateBagDropdown();
+        totalPrice();
         console.log(`Updated item ${item.title} to quantity: ${newQuantity}`);
     }
 }

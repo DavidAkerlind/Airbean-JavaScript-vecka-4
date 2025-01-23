@@ -185,6 +185,7 @@ footer section article {
     cursor: pointer;
 }
 .shopping-bag-amount {
+    font-family: "Work Sans", sans-serif;
     z-index: 9999;
     width: 2rem;
     aspect-ratio: 1;
@@ -194,7 +195,7 @@ footer section article {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 0 3.5rem -0.8rem;
+    margin: 0 0 3rem -1.4rem;
     font-weight: 500;
     font-size: 1.5rem;
 }
@@ -411,8 +412,13 @@ select {
 }
 
 .title-dropdown {
+    font-family: "PT Serif", serif;
 }
 
 .price-dropdown {
-    text-align: center;
+    font-weight: 600;
+}
+
+#totalPriceDropdown {
+    font-weight: 600;
 }
