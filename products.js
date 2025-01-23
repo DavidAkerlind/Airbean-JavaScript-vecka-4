@@ -302,19 +302,44 @@ function updateBagDropdown() {
         const fig = document.createElement("figure");
         const img = document.createElement("img");
         const span = document.createElement("span");
+        const pTitle = document.createElement("p");
+        const pPrice = document.createElement("p");
+        const hr = document.createElement("hr");
         const button = document.createElement("button");
+        let itemActionsRef = document.createElement("div");
+        let itemQuontityRef = document.createElement("select");
+
+        for (let i = 1; i <= 10; i++) {
+            let option = document.createElement("option");
+            option.value = i;
+            option.textContent = i;
+            if (i === item.quantity) {
+                option.selected = true;
+            }
+            itemQuontityRef.appendChild(option);
+        }
+
+        itemQuontityRef.addEventListener("change", (event) => {
+            const newQuantity = parseInt(event.target.value, 10);
+            updateBagItemQuantity(item.id, newQuantity);
+        });
 
         img.src = item.image;
         p.classList.add("p-dropdown");
         fig.classList.add("fig-dropdown");
         img.classList.add("img-dropdown");
         span.classList.add("span-dropdown");
+        pTitle.classList.add("title-dropdown");
+        pPrice.classList.add("price-dropdown");
         button.classList.add("remove-btn-dropdown");
+        button.classList.add("fas");
+        button.classList.add("fa-trash");
         button.dataset.id = `${item.id}`;
 
         p.textContent = `${item.quantity} st`;
-        button.textContent = "Ta bort";
-        span.textContent = `${item.title} ${
+
+        pTitle.innerText = `${item.title}`;
+        pPrice.textContent = `${
             parseInt(item.quantity) * parseInt(item.price)
         }kr`;
 
@@ -323,10 +348,16 @@ function updateBagDropdown() {
             removeItemFromCart(itemId);
         });
 
-        li.appendChild(p);
+        itemActionsRef.classList.add("select");
+        itemActionsRef.appendChild(itemQuontityRef);
+
         li.appendChild(fig);
         fig.appendChild(img);
+        span.appendChild(pTitle);
+        span.appendChild(hr);
+        span.appendChild(pPrice);
         li.appendChild(span);
+        li.appendChild(itemActionsRef);
         li.appendChild(button);
 
         bagItemsList.appendChild(li);

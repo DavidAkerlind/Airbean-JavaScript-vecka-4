@@ -173,7 +173,6 @@ footer section article {
 }
 
 .shopping-bag {
-    background-color: #ffffff;
     border-radius: 20%;
     padding: 0.5rem;
     width: 3.7rem;
@@ -182,7 +181,7 @@ footer section article {
 
 .shopping-bag-hover {
     transform: scale(0.97);
-    background-color: #a5a5a5;
+    background-color: #403834;
     cursor: pointer;
 }
 .shopping-bag-amount {
@@ -212,7 +211,7 @@ footer section article {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 25rem;
+    width: 27rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     transition: all 0.3s ease-in-out;
@@ -234,15 +233,6 @@ footer section article {
     border-bottom: 1px solid #eee;
 }
 
-#bagItems li button {
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    padding: 0.3rem 0.6rem;
-}
-
 #checkout {
     display: block;
     width: 90%;
@@ -253,13 +243,19 @@ footer section article {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+#checkout:hover {
+    transform: scale(0.99);
+    background-color: #454545;
 }
 .fig-dropdown {
-    max-width: 1.4rem;
-    max-height: 2rem;
+    max-width: 4rem;
+    max-height: auto;
 }
 .img-dropdown {
     width: 100%;
+    height: 100%;
     border-radius: 20%;
 }
 
@@ -281,6 +277,17 @@ footer section article {
     margin-bottom: 1rem;
     border: 1px solid #ddd;
     border-radius: 8px;
+}
+
+.remove-btn-dropdown {
+    font-size: 1.5rem;
+    padding: 100rem;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
 }
 
 /* Bildsektionen */
@@ -371,7 +378,9 @@ select {
     margin: 0.5rem 0;
 }
 
-.summary-section .checkout-btn {
+.summary-section {
+}
+.checkout-btn {
     background-color: #00b300;
     color: #fff;
     border: none;
@@ -382,8 +391,28 @@ select {
     width: 100%;
     margin-top: 1rem;
     transition: background-color 0.3s;
+    text-align: center;
+}
+.fa-trash::before {
+    font-size: 1rem;
 }
 
-.summary-section .checkout-btn:hover {
+.summary-section {
+}
+.checkout-btn:hover {
     background-color: #009900;
+}
+
+.span-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.title-dropdown {
+}
+
+.price-dropdown {
+    text-align: center;
 }
