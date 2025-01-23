@@ -78,23 +78,27 @@ const menu = [
     },
 ];
 
+// Funktion som skapar kort för varje kaffedryck och lägger till dem i menyn
 function addCoffeeSort(menu) {
     console.log("addCoffeeSort()");
 
+    // Referens till container där korten ska visas
     let menuContainerRef = document.querySelector(".menu-container");
 
+    // Loopar igenom menyn och skapar element för varje kaffedryck
     for (let i = 0; i < menu.length; i++) {
-        let articleCardRef = document.createElement("article");
-        let cardFigRef = document.createElement("figure");
-        let cardImgRef = document.createElement("img");
-        let divCardContentRef = document.createElement("div");
-        let cardTitleRef = document.createElement("h2");
-        let cardDescRef = document.createElement("p");
-        let cardLongerDescRef = document.createElement("p");
-        let divPriceRef = document.createElement("div");
-        let ratingRef = document.createElement("div");
-        let addBtnRef = document.createElement("button");
+        let articleCardRef = document.createElement("article"); // Kortets huvudcontainer
+        let cardFigRef = document.createElement("figure"); // Container för bilden
+        let cardImgRef = document.createElement("img"); // Bild på kaffedrycken
+        let divCardContentRef = document.createElement("div"); // Container för textinnehåll
+        let cardTitleRef = document.createElement("h2"); // Titel för kaffet
+        let cardDescRef = document.createElement("p"); // Kort beskrivning
+        let cardLongerDescRef = document.createElement("p"); // Längre beskrivning
+        let divPriceRef = document.createElement("div"); // Priscontainer
+        let ratingRef = document.createElement("div"); // Betyg för kaffet
+        let addBtnRef = document.createElement("button"); // Knapp för att lägga till i varukorgen
 
+        // Fyller elementen med data från menyn
         cardTitleRef.textContent = menu[i].title;
         cardImgRef.src = menu[i].image;
         cardDescRef.textContent = menu[i].desc;
@@ -104,6 +108,7 @@ function addCoffeeSort(menu) {
         addBtnRef.textContent = "Add to cart";
         addBtnRef.id = menu[i].id;
 
+        // Lägger till klasser för styling
         articleCardRef.classList.add("card");
         cardFigRef.classList.add("card-imgcontainer");
         cardImgRef.classList.add("card-img");
@@ -115,40 +120,61 @@ function addCoffeeSort(menu) {
         ratingRef.classList.add("rating");
         addBtnRef.classList.add("add-btn");
 
+        // Bygger upp strukturen för kortet
         cardFigRef.appendChild(cardImgRef);
         articleCardRef.appendChild(cardFigRef);
         articleCardRef.appendChild(divCardContentRef);
-        divCardContentRef.appendChild(cardTitleRef);
         divCardContentRef.appendChild(cardTitleRef);
         divCardContentRef.appendChild(cardDescRef);
         articleCardRef.appendChild(divPriceRef);
         articleCardRef.appendChild(ratingRef);
         articleCardRef.appendChild(addBtnRef);
+
+        // Lägger till kortet i menyn
         menuContainerRef.appendChild(articleCardRef);
     }
 }
 
+// Kallar på funktionen för att generera kort
 addCoffeeSort(menu);
 
+// Skapar en tom lista för varukorgen
 let shoppingBag = [];
 
+// Funktion för att lägga till produkter i varukorgen
 function addToShoppingBag(button) {
     console.log("addToShoppingBag()");
 
+    // Hämtar produktens ID från knappens attribut
     const productId = parseInt(button.id, 10);
+
+    // Kontrollera om produkten redan finns i varukorgen
     const existingProduct = shoppingBag.find((item) => item.id === productId);
 
     if (existingProduct) {
-        existingProduct.quantity++;
+        existingProduct.quantity++; // Öka kvantiteten om den redan finns
     } else {
-        shoppingBag.push(menu[button.id - 1]);
+        shoppingBag.push(menu[button.id - 1]); // Lägg till produkten i varukorgen
     }
 
+    // Uppdaterar UI för varukorgen
     let divShoppingBagAmountRef = document.querySelector(
         "#divShoppingBagAmount"
     );
     divShoppingBagAmountRef.classList.remove("d-none");
     updateBagItemAmount();
+}
+
+// Funktion för att uppdatera antalet varor i varukorgen
+function updateBagItemAmount() {
+    console.log("updateBagItemAmount()");
+
+    let bagAmount = 0;
+    shoppingBag.forEach((item) => {
+        bagAmount += parseInt(item.quantity);
+    });
+
+    document.querySelector("#divShoppingBagAmount").textContent = bagAmount;
 }
 
 function showMenuPage() {
@@ -320,17 +346,6 @@ function removeItemFromCart(itemId) {
     updateBagItemAmount();
 
     updateBagDropdown();
-}
-
-function updateBagItemAmount() {
-    console.log("updateBagItemAmount()");
-
-    let bagAmount = 0;
-    shoppingBag.forEach((item) => {
-        bagAmount += parseInt(item.quantity);
-    });
-
-    document.querySelector("#divShoppingBagAmount").textContent = bagAmount;
 }
 
 function updateBagItemQuantity(itemId, newQuantity) {
