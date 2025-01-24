@@ -34,10 +34,10 @@ const menu = [
     },
     {
         id: 4,
-        title: "Latte Macchiato",
+        title: "Macchiato",
         desc: "Ett konstnärligt lager av mjölk och espresso, med en skvätt av kärlek.",
         longer_desc:
-            "Latte Macchiato är en elegant kaffedryck som består av varmt skummad mjölk som hälls över en espresso. Den mjuka smaken av mjölken balanseras perfekt av den kraftfulla smaken av espresso, vilket ger en harmonisk och njutbar upplevelse.",
+            "Macchiato är en elegant kaffedryck som består av varmt skummad mjölk som hälls över en espresso. Den mjuka smaken av mjölken balanseras perfekt av den kraftfulla smaken av espresso, vilket ger en harmonisk och njutbar upplevelse.",
         price: 49,
         rating: 4.6,
         image: "https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFjY2hpYXRvfGVufDB8fDB8fHww",
@@ -68,7 +68,7 @@ const menu = [
     {
         id: 7,
         title: "Santos Special",
-        desc: "Som en omfamning från din favoritfilt, fast i dryckesform.",
+        desc: "Som en omfamning från din favoritfilt, mjuk, varm och mysig, fast i dryckesform.",
         longer_desc:
             "Santos Special är en exklusiv kaffedryck som är perfekt för kaffedrickare som vill unna sig något extra. Med sin rika och komplexa smakprofil är det som att få en varm kram från din favoritfilt varje gång du tar en klunk.",
         price: 69,
@@ -122,9 +122,9 @@ function addCoffeeSort(menu) {
 
         // Bygger upp strukturen för kortet
         cardFigRef.appendChild(cardImgRef);
+        cardFigRef.appendChild(cardTitleRef);
         articleCardRef.appendChild(cardFigRef);
         articleCardRef.appendChild(divCardContentRef);
-        divCardContentRef.appendChild(cardTitleRef);
         divCardContentRef.appendChild(cardDescRef);
         articleCardRef.appendChild(divPriceRef);
         articleCardRef.appendChild(ratingRef);
