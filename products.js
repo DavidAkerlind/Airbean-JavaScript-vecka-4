@@ -417,6 +417,7 @@ function updateBagItemQuantity(itemId, newQuantity) {
         updateBagItemAmount();
         updateBagDropdown();
         totalPrice();
+
         console.log(`Updated item ${item.title} to quantity: ${newQuantity}`);
     }
 }
