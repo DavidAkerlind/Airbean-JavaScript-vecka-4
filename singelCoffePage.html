@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="./products.js"></script>
+        <title>Single coffe page</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <header>
+            <img src="./logo-airbean.svg" alt="sinus" class="logo" />
+            <nav>
+                <a id="navMenu" class="nav-menu" href="#">Meny</a>
+                <a href="#">Contact</a>
+                <img class="shopping-bag" src="./icon-bag.svg" alt="cart" />
+                <div
+                    id="divShoppingBagAmount"
+                    class="shopping-bag-amount d-none"></div>
+                <div id="bagDropdown" class="dropdown d-none">
+                    <h3>Din varukorg</h3>
+                    <ul id="bagItems"></ul>
+                    <div
+                        id="totalPriceDropdown"
+                        class="total-price-dropdown"></div>
+                    <button id="checkout">Checkout</button>
+                </div>
+            </nav>
+        </header>
+        <h1 class="menu-header1"></h1>
+        <div class="menu-container"></div>
+        <h1 class="menu-header2 d-none">Varukorg</h1>
+        <div id="shoppingBagPage" class="shopping-bag-page d-none"></div>
+        <h2 class="menu-sub-header d-none"></h2>
+    </body>
+</html>

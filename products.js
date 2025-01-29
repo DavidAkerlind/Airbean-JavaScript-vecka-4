@@ -1,3 +1,7 @@
+function log(message) {
+    console.log(message);
+}
+
 const menu = [
     {
         id: 1,
@@ -77,10 +81,90 @@ const menu = [
         quantity: 1,
     },
 ];
+window.onload = function () {
+    if (window.location.pathname === "/") {
+        pageSetup();
+    } else if (window.location.pathname === "/singelCoffePage.html") {
+        pageSetupSingel();
+    }
+};
+// Kallar på funktionen för att generera kort
+
+// Skapar en tom lista för varukorgen
+
+function pageSetupSingel() {
+    log("pageSetupSingel()");
+    let shoppingBagBtn = document.querySelector(".shopping-bag");
+
+    shoppingBagBtn.addEventListener("mouseenter", () => {
+        shoppingBagBtn.classList.add("shopping-bag-hover");
+        updateBagDropdown();
+        document.querySelector(".dropdown").classList.remove("d-none");
+    });
+
+    shoppingBagBtn.addEventListener("mouseleave", () => {
+        shoppingBagBtn.classList.remove("shopping-bag-hover");
+    });
+    document.querySelector(".logo").addEventListener("click", showMenuPage);
+
+    document.querySelector("#navMenu").addEventListener("click", showMenuPage);
+
+    document
+        .querySelector("#bagDropdown")
+        .addEventListener("mouseleave", () => {
+            document.querySelector("#bagDropdown").classList.add("d-none");
+        });
+}
+
+function pageSetup() {
+    log("pageSetup()");
+    addCoffeeSort(menu);
+    let shoppingBagBtn = document.querySelector(".shopping-bag");
+
+    shoppingBagBtn.addEventListener("mouseenter", () => {
+        shoppingBagBtn.classList.add("shopping-bag-hover");
+        updateBagDropdown();
+        document.querySelector(".dropdown").classList.remove("d-none");
+    });
+
+    shoppingBagBtn.addEventListener("mouseleave", () => {
+        shoppingBagBtn.classList.remove("shopping-bag-hover");
+    });
+
+    shoppingBagBtn.addEventListener("click", showShoppingPage);
+    document
+        .querySelector("#checkout")
+        .addEventListener("click", showShoppingPage);
+
+    document.querySelector(".logo").addEventListener("click", showMenuPage);
+
+    document.querySelector("#navMenu").addEventListener("click", showMenuPage);
+
+    document
+        .querySelector("#bagDropdown")
+        .addEventListener("mouseleave", () => {
+            document.querySelector("#bagDropdown").classList.add("d-none");
+        });
+
+    let allAddButtons = document.querySelectorAll(".add-btn");
+    allAddButtons.forEach((button) => {
+        button.addEventListener("mouseenter", () =>
+            button.classList.toggle("add-btn-hover")
+        );
+
+        button.addEventListener("mouseleave", () =>
+            button.classList.remove("add-btn-hover")
+        );
+
+        button.addEventListener("click", () => {
+            addToShoppingBag(button);
+        });
+    });
+}
 
 // Funktion som skapar kort för varje kaffedryck och lägger till dem i menyn
 function addCoffeeSort(menu) {
-    console.log("addCoffeeSort()");
+    log("addCoffeeSort()");
 
     // Referens till container där korten ska visas
     let menuContainerRef = document.querySelector(".menu-container");
@@ -88,7 +172,7 @@ function addCoffeeSort(menu) {
     // Loopar igenom menyn och skapar element för varje kaffedryck
     for (let i = 0; i < menu.length; i++) {
         let articleCardRef = document.createElement("article"); // Kortets huvudcontainer
-        let cardFigRef = document.createElement("figure"); // Container för bilden
+        let cardFigRef = document.createElement("a"); // Container för bilden
         let cardImgRef = document.createElement("img"); // Bild på kaffedrycken
         let divCardContentRef = document.createElement("div"); // Container för textinnehåll
         let cardTitleRef = document.createElement("h2"); // Titel för kaffet
@@ -99,6 +183,7 @@ function addCoffeeSort(menu) {
         let addBtnRef = document.createElement("button"); // Knapp för att lägga till i varukorgen
 
         // Fyller elementen med data från menyn
+
         cardTitleRef.textContent = menu[i].title;
         cardImgRef.src = menu[i].image;
         cardDescRef.textContent = menu[i].desc;
@@ -107,6 +192,11 @@ function addCoffeeSort(menu) {
         ratingRef.textContent = menu[i].rating + " ★★★★";
         addBtnRef.textContent = "Add to cart";
         addBtnRef.id = menu[i].id;
+        cardFigRef.id = menu[i].id;
+        cardFigRef.addEventListener("click", () => {
+            localStorage.setItem("clickedCoffe", JSON.stringify(menu[i]));
+            window.location.href = "/singelCoffePage.html";
+        });
 
         // Lägger till klasser för styling
         articleCardRef.classList.add("card");
@@ -135,18 +225,14 @@ function addCoffeeSort(menu) {
     }
 }
 
-// Kallar på funktionen för att generera kort
-addCoffeeSort(menu);
-
-// Skapar en tom lista för varukorgen
-let shoppingBag = [];
-
 // Funktion för att lägga till produkter i varukorgen
 function addToShoppingBag(button) {
-    console.log("addToShoppingBag()");
+    log("addToShoppingBag()");
 
     // Hämtar produktens ID från knappens attribut
     const productId = parseInt(button.id, 10);
+
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
 
     // Kontrollera om produkten redan finns i varukorgen
     const existingProduct = shoppingBag.find((item) => item.id === productId);
@@ -156,6 +242,8 @@ function addToShoppingBag(button) {
     } else {
         shoppingBag.push(menu[button.id - 1]); // Lägg till produkten i varukorgen
     }
+
+    localStorage.setItem("shoppingBag", JSON.stringify(shoppingBag));
 
     // Uppdaterar UI för varukorgen
     let divShoppingBagAmountRef = document.querySelector(
@@ -167,7 +255,9 @@ function addToShoppingBag(button) {
 
 // Funktion för att uppdatera antalet varor i varukorgen
 function updateBagItemAmount() {
-    console.log("updateBagItemAmount()");
+    log("updateBagItemAmount()");
+
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
 
     let bagAmount = 0;
     shoppingBag.forEach((item) => {
@@ -179,9 +269,11 @@ function updateBagItemAmount() {
     } else {
         document.querySelector("#divShoppingBagAmount").classList.add("d-none");
     }
+    localStorage.setItem("shoppingBag", JSON.stringify(shoppingBag));
 }
 
 function showMenuPage() {
+    log("showMenuPage()");
     document.querySelector(".menu-header1").classList.remove("d-none");
     document.querySelector(".menu-container").classList.remove("d-none");
     document.querySelector(".menu-header1").classList.remove("d-none");
@@ -190,7 +282,7 @@ function showMenuPage() {
 }
 
 function showShoppingPage() {
-    console.log("showShoppingPage()");
+    log("showShoppingPage()");
 
     document.querySelector(".menu-header1").classList.add("d-none");
     document.querySelector(".menu-container").classList.add("d-none");
@@ -201,6 +293,8 @@ function showShoppingPage() {
 
     const shoppingBagPageRef = document.querySelector(".shopping-bag-page");
     shoppingBagPageRef.innerHTML = ""; // Tar bort tidigare renderade produkter
+
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
 
     let bagAmount2 = 0;
     shoppingBag.forEach((item) => {
@@ -216,7 +310,11 @@ function showShoppingPage() {
     }
 }
 function addItemTOShoppingBagPage() {
+    log("addItemTOShoppingBagPage()");
     let shoppingBagPageRef = document.querySelector("#shoppingBagPage");
+
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
+
     shoppingBag.forEach((item) => {
         console.log(item);
         let itemArticleRef = document.createElement("article");
@@ -284,11 +382,17 @@ function addItemTOShoppingBagPage() {
 
         shoppingBagPageRef.appendChild(itemArticleRef);
     });
+
+    localStorage.setItem("shoppingBag", JSON.stringify(shoppingBag));
 }
 
 function updateBagDropdown() {
-    console.log("updateBagDropdown()");
+    log("updateBagDropdown()");
     totalPrice();
+
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
+
+    let bagItemsList = document.querySelector("#bagItems");
     bagItemsList.innerHTML = "";
     if (shoppingBag.length === 0) {
         let emptyMsg = document.createElement("li");
@@ -366,15 +470,20 @@ function updateBagDropdown() {
         if (item.quantity > 1) {
             return;
         }
+        localStorage.setItem("shoppingBag", JSON.stringify(shoppingBag));
     });
 }
 
 function totalPrice() {
+    log("totalPrice()");
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
+
     console.log("totalPrice()");
     let totalPriceCheckout = 0;
     shoppingBag.forEach((item) => {
         let price = item.quantity * item.price;
         totalPriceCheckout += price;
+        localStorage.setItem("shoppingBag", JSON.stringify(shoppingBag));
     });
 
     document.querySelector(
@@ -384,7 +493,9 @@ function totalPrice() {
     return totalPriceCheckout;
 }
 function removeItemFromCart(itemId) {
-    console.log("removeItemFromCart()");
+    log("removeItemFromCart()");
+
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
 
     let existingProduct = shoppingBag.find((item) => item.id === itemId);
 
@@ -393,14 +504,20 @@ function removeItemFromCart(itemId) {
     }
 
     shoppingBag = shoppingBag.filter((item) => item.id !== itemId);
-    console.log(shoppingBag);
+
+    log(shoppingBag);
+
+    localStorage.setItem("shoppingBag", JSON.stringify(shoppingBag));
     updateBagItemAmount();
 
     updateBagDropdown();
 }
 
 function updateBagItemQuantity(itemId, newQuantity) {
-    console.log("updateBagItemQuantity()");
+    log("updateBagItemQuantity()");
+
+    let shoppingBag = JSON.parse(localStorage.getItem("shoppingBag")) || [];
+
     const item = shoppingBag.find((product) => product.id === itemId);
     if (item) {
         item.quantity = newQuantity;
@@ -412,56 +529,12 @@ function updateBagItemQuantity(itemId, newQuantity) {
             const itemPriceRef = itemArticleRef.querySelector(".item-price");
             itemPriceRef.textContent = `${item.price * item.quantity}kr`;
         }
-
+        localStorage.setItem("shoppingBag", JSON.stringify(shoppingBag));
         // Uppdatera totalmängden och dropdown
         updateBagItemAmount();
         updateBagDropdown();
         totalPrice();
 
-        console.log(`Updated item ${item.title} to quantity: ${newQuantity}`);
+        log(`Updated item ${item.title} to quantity: ${newQuantity}`);
     }
 }
-
-//==============================Not functions ================================
-let shoppingBagBtn = document.querySelector(".shopping-bag");
-
-shoppingBagBtn.addEventListener("mouseenter", () => {
-    shoppingBagBtn.classList.add("shopping-bag-hover");
-    updateBagDropdown();
-    document.querySelector(".dropdown").classList.remove("d-none");
-});
-
-shoppingBagBtn.addEventListener("mouseleave", () => {
-    shoppingBagBtn.classList.remove("shopping-bag-hover");
-});
-
-shoppingBagBtn.addEventListener("click", showShoppingPage);
-document.querySelector("#checkout").addEventListener("click", showShoppingPage);
-
-document.querySelector(".logo").addEventListener("click", showMenuPage);
-
-document.querySelector("#navMenu").addEventListener("click", showMenuPage);
-
-document.querySelector("#bagDropdown").addEventListener("mouseleave", () => {
-    document.querySelector("#bagDropdown").classList.add("d-none");
-});
-
-let allAddButtons = document.querySelectorAll(".add-btn");
-allAddButtons.forEach((button) => {
-    button.addEventListener("mouseenter", () =>
-        button.classList.toggle("add-btn-hover")
-    );
-
-    button.addEventListener("mouseleave", () =>
-        button.classList.remove("add-btn-hover")
-    );
-
-    button.addEventListener("click", () => {
-        addToShoppingBag(button);
-    });
-});
-
-let bagDropdownRef = document.querySelector("#bagDropdown");
-let bagItemsList = document.querySelector("#bagItems");
-
-//==============================^^^^^ Not functions ^^^^ ================================
