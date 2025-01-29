@@ -148,7 +148,7 @@ footer section article {
     border-radius: 5px;
     display: block;
     width: 100%;
-
+    object-fit: cover;
     filter: brightness(0.7); /* Ger en mörkare ton på bilden */
     border-radius: 5px;
 }
@@ -286,6 +286,7 @@ footer section article {
     width: 100%;
     height: 100%;
     border-radius: 20%;
+    object-fit: cover;
 }
 
 .p-dropdown {
@@ -411,8 +412,6 @@ select {
     margin: 0.5rem 0;
 }
 
-.summary-section {
-}
 .checkout-btn {
     background-color: #00b300;
     color: #fff;
@@ -430,8 +429,6 @@ select {
     font-size: 1rem;
 }
 
-.summary-section {
-}
 .checkout-btn:hover {
     background-color: #009900;
 }
@@ -455,7 +452,68 @@ select {
     font-weight: 600;
 }
 
-@media (max-width: 768px) {
+/* För kaffekortens innehåll */
+.coffee-card {
+    max-width: 350px; /* Större bredd för korten */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.coffee-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* För bildcontainer */
+.coffee-imgcontainer {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.coffee-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Innehållstext */
+.coffee-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.coffee-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.coffee-longerdesc {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Pris och betyg */
+.coffee-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #38846d;
+}
+
+.coffee-rating {
+    font-size: 1rem;
+    color: #f39c12;
+}
+
+@media (max-width: 560px) {
     header {
         padding: 1rem;
         flex-direction: column;

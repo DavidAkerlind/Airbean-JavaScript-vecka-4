@@ -99,8 +99,65 @@ window.onload = function () {
 
 // Skapar en tom lista för varukorgen
 
+function displayCoffeeDetails(coffee) {
+    console.log("displayCoffeeDetails()");
+
+    // Referens till container där kaffedetaljerna ska visas
+    let coffeeContainerRef = document.querySelector(".coffee-container");
+    coffeeContainerRef.innerHTML = ""; // Rensar tidigare innehåll
+
+    let articleCardRef = document.createElement("article"); // Huvudcontainer
+    let cardFigRef = document.createElement("figure"); // Container för bilden
+    let cardImgRef = document.createElement("img"); // Bild på kaffedrycken
+    let divCardContentRef = document.createElement("div"); // Textcontainer
+    let cardTitleRef = document.createElement("h1"); // Titel
+
+    let cardLongerDescRef = document.createElement("p"); // Längre beskrivning
+    let divPriceRef = document.createElement("div"); // Priscontainer
+    let ratingRef = document.createElement("div"); // Betyg
+    let addBtnRef = document.createElement("button");
+
+    // Fyller elementen med data från kaffet
+    cardTitleRef.textContent = coffee.title;
+    cardImgRef.src = coffee.image;
+    cardImgRef.alt = coffee.title;
+
+    cardLongerDescRef.textContent = coffee.longer_desc;
+    divPriceRef.textContent = `Pris: ${coffee.price} kr`;
+    ratingRef.textContent = `Betyg: ${coffee.rating} ★`;
+    addBtnRef.id = `add-${coffee.id}`;
+    addBtnRef.textContent = "lägg till i varukorgen";
+
+    // Lägger till klasser för styling
+    articleCardRef.classList.add("coffee-card");
+    cardFigRef.classList.add("coffee-imgcontainer");
+    cardImgRef.classList.add("coffee-img");
+    divCardContentRef.classList.add("coffee-content");
+    cardTitleRef.classList.add("coffee-title");
+
+    cardLongerDescRef.classList.add("coffee-longerdesc");
+    divPriceRef.classList.add("coffee-price");
+    ratingRef.classList.add("coffee-rating");
+    addBtnRef.classList.add("add-btn");
+
+    // Bygger upp strukturen
+    cardFigRef.appendChild(cardImgRef);
+    articleCardRef.appendChild(cardFigRef);
+    articleCardRef.appendChild(divCardContentRef);
+    divCardContentRef.appendChild(cardTitleRef);
+
+    divCardContentRef.appendChild(cardLongerDescRef);
+    divCardContentRef.appendChild(divPriceRef);
+    divCardContentRef.appendChild(ratingRef);
+    divCardContentRef.appendChild(addBtnRef);
+
+    // Lägger till kaffedetaljerna i containern
+    coffeeContainerRef.appendChild(articleCardRef);
+}
+
 function pageSetupSingel() {
     log("pageSetupSingel()");
+
     let shoppingBagBtn = document.querySelector(".shopping-bag");
 
     shoppingBagBtn.addEventListener("mouseenter", () => {
@@ -121,6 +178,8 @@ function pageSetupSingel() {
         .addEventListener("mouseleave", () => {
             document.querySelector("#bagDropdown").classList.add("d-none");
         });
+    const clickedCoffe = JSON.parse(localStorage.getItem("clickedCoffe"));
+    displayCoffeeDetails(clickedCoffe);
 }
 
 function pageSetup() {
