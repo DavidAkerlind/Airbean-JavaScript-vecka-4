@@ -82,9 +82,16 @@ const menu = [
     },
 ];
 window.onload = function () {
-    if (window.location.pathname === "/") {
+    if (
+        window.location.pathname === "/" ||
+        window.location.pathname === "/Airbean-JavaScript-vecka-4/"
+    ) {
         pageSetup();
-    } else if (window.location.pathname === "/singelCoffePage.html") {
+    } else if (
+        window.location.pathname === "/singelCoffePage.html" ||
+        window.location.pathname ===
+            "/Airbean-JavaScript-vecka-4/singelCoffePage"
+    ) {
         pageSetupSingel();
     }
 };
