@@ -38,6 +38,7 @@ header {
     align-items: center;
     box-sizing: border-box;
     background-color: #2f2926;
+    justify-content: space-between;
 }
 
 .logo {
@@ -47,7 +48,6 @@ header {
 }
 
 header nav {
-    margin-left: auto;
     display: flex;
     align-items: center;
 }
@@ -57,7 +57,7 @@ footer a {
     color: rgb(255, 255, 255);
     font-size: 1.6rem;
     text-decoration: none;
-    margin: 0 1.6rem;
+    margin-right: 1rem;
 }
 
 header nav a.active {
@@ -453,4 +453,85 @@ select {
 
 #totalPriceDropdown {
     font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav {
+        gap: 1rem;
+        align-self: flex-end;
+    }
+
+    header nav a {
+        margin: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .menu-header1,
+    .menu-header2 {
+        font-size: 2rem;
+        margin-top: 6rem;
+    }
+
+    .menu-sub-header {
+        font-size: 1.5rem;
+    }
+
+    .menu-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card {
+        max-width: 90%;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .card-longerdesc {
+        font-size: 0.8rem;
+    }
+
+    .shopping-bag {
+        width: 3rem;
+    }
+
+    .shopping-bag-amount {
+        font-size: 1rem;
+        width: 1.5rem;
+        margin-left: -1rem;
+    }
+
+    .dropdown {
+        width: 90%;
+        right: 5%;
+        top: 85%;
+    }
+
+    .checkout-btn {
+        font-size: 1rem;
+        padding: 0.6rem;
+    }
+
+    .summary-section h3 {
+        font-size: 1.3rem;
+    }
+
+    .summary-section p {
+        font-size: 1rem;
+    }
+
+    .remove-item {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
 }
