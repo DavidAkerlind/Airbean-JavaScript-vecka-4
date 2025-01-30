@@ -86,13 +86,15 @@ window.onload = function () {
         window.location.pathname === "/" ||
         window.location.pathname === "/Airbean-JavaScript-vecka-4/"
     ) {
-        pageSetup();
+        pageSetupMenu();
+        pageSetupStandard();
     } else if (
         window.location.pathname === "/singelCoffePage.html" ||
         window.location.pathname ===
             "/Airbean-JavaScript-vecka-4/singelCoffePage"
     ) {
         pageSetupSingel();
+        pageSetupStandard();
     }
 };
 // Kallar på funktionen för att generera kort
@@ -125,7 +127,7 @@ function displayCoffeeDetails(coffee) {
     cardLongerDescRef.textContent = coffee.longer_desc;
     divPriceRef.textContent = `Pris: ${coffee.price} kr`;
     ratingRef.textContent = `Betyg: ${coffee.rating} ★`;
-    addBtnRef.id = `add-${coffee.id}`;
+    addBtnRef.id = coffee.id;
     addBtnRef.textContent = "lägg till i varukorgen";
 
     // Lägger till klasser för styling
@@ -154,37 +156,10 @@ function displayCoffeeDetails(coffee) {
     // Lägger till kaffedetaljerna i containern
     coffeeContainerRef.appendChild(articleCardRef);
 }
+function pageSetupStandard() {
+    log("pageSetupStandard()");
+    document.querySelector("#divShoppingBagAmount").classList.remove("d-none");
 
-function pageSetupSingel() {
-    log("pageSetupSingel()");
-
-    let shoppingBagBtn = document.querySelector(".shopping-bag");
-
-    shoppingBagBtn.addEventListener("mouseenter", () => {
-        shoppingBagBtn.classList.add("shopping-bag-hover");
-        updateBagDropdown();
-        document.querySelector(".dropdown").classList.remove("d-none");
-    });
-
-    shoppingBagBtn.addEventListener("mouseleave", () => {
-        shoppingBagBtn.classList.remove("shopping-bag-hover");
-    });
-    document.querySelector(".logo").addEventListener("click", showMenuPage);
-
-    document.querySelector("#navMenu").addEventListener("click", showMenuPage);
-
-    document
-        .querySelector("#bagDropdown")
-        .addEventListener("mouseleave", () => {
-            document.querySelector("#bagDropdown").classList.add("d-none");
-        });
-    const clickedCoffe = JSON.parse(localStorage.getItem("clickedCoffe"));
-    displayCoffeeDetails(clickedCoffe);
-}
-
-function pageSetup() {
-    log("pageSetup()");
-    addCoffeeSort(menu);
     let shoppingBagBtn = document.querySelector(".shopping-bag");
 
     shoppingBagBtn.addEventListener("mouseenter", () => {
@@ -226,6 +201,19 @@ function pageSetup() {
             addToShoppingBag(button);
         });
     });
+
+    updateBagItemAmount();
+}
+function pageSetupSingel() {
+    log("pageSetupSingel()");
+
+    const clickedCoffe = JSON.parse(localStorage.getItem("clickedCoffe"));
+    displayCoffeeDetails(clickedCoffe);
+}
+
+function pageSetupMenu() {
+    log("pageSetupMenu()");
+    addCoffeeSort(menu);
 }
 
 // Funktion som skapar kort för varje kaffedryck och lägger till dem i menyn
@@ -349,6 +337,10 @@ function showMenuPage() {
 
 function showShoppingPage() {
     log("showShoppingPage()");
+
+    if (document.querySelector(".coffee-container")) {
+        document.querySelector(".coffee-container").classList.add("d-none");
+    }
 
     document.querySelector(".menu-header1").classList.add("d-none");
     document.querySelector(".menu-container").classList.add("d-none");
