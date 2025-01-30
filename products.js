@@ -177,10 +177,6 @@ function pageSetupStandard() {
         .querySelector("#checkout")
         .addEventListener("click", showShoppingPage);
 
-    document.querySelector(".logo").addEventListener("click", showMenuPage);
-
-    document.querySelector("#navMenu").addEventListener("click", showMenuPage);
-
     document
         .querySelector("#bagDropdown")
         .addEventListener("mouseleave", () => {
@@ -207,12 +203,19 @@ function pageSetupStandard() {
 function pageSetupSingel() {
     log("pageSetupSingel()");
 
+    document.querySelector(".logo").addEventListener("click", showMenuPage);
+
+    document.querySelector("#navMenu").addEventListener("click", showMenuPage);
+
     const clickedCoffe = JSON.parse(localStorage.getItem("clickedCoffe"));
     displayCoffeeDetails(clickedCoffe);
 }
 
 function pageSetupMenu() {
     log("pageSetupMenu()");
+    document.querySelector(".logo").addEventListener("click", showMenuPage);
+
+    document.querySelector("#navMenu").addEventListener("click", showMenuPage);
     addCoffeeSort(menu);
 }
 
@@ -328,6 +331,15 @@ function updateBagItemAmount() {
 
 function showMenuPage() {
     log("showMenuPage()");
+
+    if (
+        window.location.pathname === "/singelCoffePage.html" ||
+        window.location.pathname ===
+            "/Airbean-JavaScript-vecka-4/singelCoffePage"
+    ) {
+        log("yes dataset");
+        window.history.back();
+    }
     document.querySelector(".menu-header1").classList.remove("d-none");
     document.querySelector(".menu-container").classList.remove("d-none");
     document.querySelector(".menu-header1").classList.remove("d-none");
